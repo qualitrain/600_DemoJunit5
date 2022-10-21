@@ -25,7 +25,7 @@ public class GestorArticulos {
 		bdMem.put(artI.getCve(), artI);
 		artI = new Articulo("CPCC-100","Cuaderno profesional","Cuaderno profesionall 100 hjs Cuadro chico", 12.90f, 26.25f);
 		bdMem.put(artI.getCve(), artI);
-		artI = new Articulo("JC-24","Juego Colores","Juego 24 Lápices de colores", 45.20f, 97.95f);
+		artI = new Articulo("JC-24","Juego Colores","Juego 24 Lï¿½pices de colores", 45.20f, 97.95f);
 		bdMem.put(artI.getCve(), artI);
 		return bdMem;
 	}
@@ -39,6 +39,15 @@ public class GestorArticulos {
 		}
 		this.bd.put(art.getCve(), art);
 		return art;
+	}
+	public Articulo actualizarUno(Articulo art) {
+		Articulo artBD = this.bd.get(art.getCve());
+		if (artBD == null) {
+			return this.insertarUno(art);
+		}
+		
+		Articulo artAnt  = this.bd.put(art.getCve(), art);
+		return artAnt;
 	}
 	public int borrarUno(String cve) {
 		Articulo artBorrado = this.bd.remove(cve);
