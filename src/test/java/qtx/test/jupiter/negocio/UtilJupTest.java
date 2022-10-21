@@ -2,11 +2,17 @@ package qtx.test.jupiter.negocio;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.RepetitionInfo;
 import org.junit.jupiter.api.Test;
 
 import qtx.negocio.Util;
 
 class UtilJupTest {
+	private static int nTest = 0;
 
 	@Test
 	void testEvaluarUtilidad() {
@@ -28,5 +34,27 @@ class UtilJupTest {
 				);
 		System.out.println("testEvaluarUtilidad...OK");
     }
+	
+	@RepeatedTest(5)
+	@DisplayName("testEvaluarUtilidad con @Repeated")
+	void testEvaluarUtilidad(RepetitionInfo repInfo) {
+		System.out.println("testEvaluarUtilidad_rep " + repInfo.getCurrentRepetition() + "/" 
+	                                                  + repInfo.getTotalRepetitions()); 
+		float precio = 100 * repInfo.getCurrentRepetition();
+		float costo = 99 * repInfo.getCurrentRepetition();
+		
+		assertEquals("Perdida", Util.evaluarUtilidad(precio, costo, 0.2, 0.5));
+	}
+	
+	@BeforeEach
+	void preProcesarTest() {
+		nTest++;
+		System.out.println("Antes del test " + nTest);
+	}
+	
+	@AfterEach
+	void postProcesarTest() {
+		System.out.println("Despues del test " + nTest + "\n");
+	}
 
 }
