@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.RepetitionInfo;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import qtx.negocio.Util;
@@ -15,6 +16,7 @@ class UtilJupTest {
 	private static int nTest = 0;
 
 	@Test
+	@Tag("Humo")
 	void testEvaluarUtilidad() {
 		//dados 
 		double costo = 100;

@@ -13,6 +13,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
@@ -39,6 +40,7 @@ class GestorArticulosJupTest {
 		System.out.println("\n========= Fin pruebas Gestor Articulos =========\n");		
 	}
 	@Test
+	@Tag("Humo")
 	void testGetIdsTodos() {
 		nomTest+="testGetIdsTodos... ";
 		
@@ -68,6 +70,8 @@ class GestorArticulosJupTest {
 		
 		@Test
 		@DisplayName("Insercion Simple")
+		@Tag("UpdateBD")
+		@Tag("Humo")
 		public void testInsertarUno() {
 			nomTest += "insertarTest";
 			String idArt = "BC-CC";
@@ -94,6 +98,7 @@ class GestorArticulosJupTest {
 		}
 		@Test
 		@DisplayName("Actualizacion de objeto pre-existente")
+		@Tag("UpdateBD")
 		public void actualizarTest() {
 			nomTest += "testActualizarUno";
 			String idArt = "BC-R";
@@ -108,6 +113,7 @@ class GestorArticulosJupTest {
 		}
 		@Test
 		@DisplayName("Eliminacion de objeto pre-existente")
+		@Tag("UpdateBD")
 		public void testBorrarUno() {
 			nomTest += "eliminarTest";
 			String idArt = "BC-B";
@@ -125,6 +131,7 @@ class GestorArticulosJupTest {
 		}
 		@Test
 		@DisplayName("Insercion de duplicados")
+		@Tag("UpdateBD")
 		public void testInsertarUno_duplicado() {
 			nomTest += "testInsertarUno_duplicado";
 			
