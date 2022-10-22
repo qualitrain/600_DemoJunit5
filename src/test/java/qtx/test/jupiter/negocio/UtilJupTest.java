@@ -9,6 +9,8 @@ import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.RepetitionInfo;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import qtx.negocio.Util;
 
@@ -48,6 +50,15 @@ class UtilJupTest {
 		assertEquals("Perdida", Util.evaluarUtilidad(precio, costo, 0.2, 0.5));
 	}
 	
+	// Se alimenta un test con UN SOLO parametro
+	@ParameterizedTest(name = "No. {index} - Se ejecuta la prueba con precio = {0}")
+	@ValueSource(floats = { 50f, 60f, 99f, 100f })
+	@DisplayName("testEvaluarUtilidad_ValueSource con un solo parametro")
+	void testEvaluarUtilidad_ValueSource(float precio) {
+		System.out.println("testEvaluarUtilidad_ValueSource");
+		assertEquals("Perdida", Util.evaluarUtilidad(100, precio, 0.2, 0.5));
+	}
+		
 	@BeforeEach
 	void preProcesarTest() {
 		nTest++;

@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -19,6 +20,12 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EmptySource;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.NullSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import qtx.negocio.Articulo;
 import qtx.persistencia.GestorArticulosFake;
@@ -171,7 +178,47 @@ class GestorArticulosJupTest {
 			nomTest += "... OK";
 		}
 
+		// ==== Pruebas parametrizadas ====
+		
+		@ParameterizedTest(name = "Num {index} - {0}" )
+//		@EmptySource
+//		@NullSource
+		@NullAndEmptySource
+		@ValueSource(strings = {" "})
+		@DisplayName("Lectura X ID con llave nula o vacia")
+		public void testGetXid(String idArt) {
+			nomTest += "testGetXid_null_vacio " + "idArt=[" + idArt + "]";
+			
+			//Dados 
+			assumeTrue(gestorArticulos != null);
+			//Cuando
+			Articulo artRec = gestorArticulos.getXId(idArt);
+			//Entonces
+			assertNull(artRec);			
+			nomTest += "... OK";
+		}
+				
 	}
+	
+	static Stream<String> getLLavesTest(){
+		return gestorArticulos.getIdsTodos().stream();
+	}
+	@ParameterizedTest(name="Num {index} - Prueba con id = {0}")
+    @MethodSource("getLLavesTest")
+	@DisplayName("Leemos todos los ids")
+	public void testGetXid_todos(String idArt) {
+		nomTest += "testGetXid_todos";
+		
+		//Dados
+		assumeTrue(gestorArticulos != null);
+		//Cuando
+		Articulo artRec = gestorArticulos.getXId(idArt);
+		//Entonces
+		assertNotNull(artRec);			
+		nomTest += "... OK";		
+	}
+			
+
 	
 	@AfterEach
 	public void mostrarFinTestI() {
