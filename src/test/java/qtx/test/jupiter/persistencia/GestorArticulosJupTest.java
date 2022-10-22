@@ -2,6 +2,7 @@ package qtx.test.jupiter.persistencia;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
+import static org.junit.jupiter.api.Assumptions.assumingThat;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,17 +19,20 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
 import qtx.negocio.Articulo;
-import qtx.persistencia.GestorArticulos;
+import qtx.persistencia.GestorArticulosFake;
+import qtx.persistencia.GestorArticulosMemoria;
 import qtx.persistencia.PersistenciaException;
+import qtx.servicios.IGestorArticulos;
 
 class GestorArticulosJupTest {
-	private static GestorArticulos gestorArticulos;
+	private static IGestorArticulos gestorArticulos;
 	private String nomTest = ""; 
 	private static int nTest = 0;
 
 	@BeforeAll
 	public static void prepararTests() {
-		gestorArticulos = new GestorArticulos();
+//		gestorArticulos = new GestorArticulosFake();
+		gestorArticulos = new GestorArticulosMemoria();
 		gestorArticulos.borrarUno("JG-1");
 		gestorArticulos.borrarUno("JG-2");
 		System.out.println("================================================");
@@ -47,17 +51,21 @@ class GestorArticulosJupTest {
 		//Dados
 		assumeTrue(gestorArticulos != null);
 		
-		List<String> llavesEsp = Arrays.asList(new String[] {"CPB-100","CPCG-200","CPCC-100","JC-24","L-1"})
-				                       .stream()
-				                       .sorted()
-				                       .collect(Collectors.toList());
-		//Cuando
-		List<String> llaves = gestorArticulos.getIdsTodos()
-				                             .stream()
-				                             .sorted()
-						                     .collect(Collectors.toList());
-		//Entonces
-		assertIterableEquals(llavesEsp, llaves, "Las llaves no son las esperadas");
+		assumingThat(gestorArticulos instanceof GestorArticulosMemoria,
+		()->{
+		
+			List<String> llavesEsp = Arrays.asList(new String[] {"CPB-100","CPCG-200","CPCC-100","JC-24","L-1"})
+					                       .stream()
+					                       .sorted()
+					                       .collect(Collectors.toList());
+			//Cuando
+			List<String> llaves = gestorArticulos.getIdsTodos()
+					                             .stream()
+					                             .sorted()
+							                     .collect(Collectors.toList());
+			//Entonces
+			assertIterableEquals(llavesEsp, llaves, "Las llaves no son las esperadas");
+		});
 		nomTest += "OK";
 	}
 	@Nested
@@ -108,6 +116,7 @@ class GestorArticulosJupTest {
 			gestorArticulos.insertarUno(art);
 			Articulo artModif = new Articulo(idArt, "Block carta", "75 Hjs, carta, rayado", 34.00f, 71.50f);
 			Articulo artAnt = gestorArticulos.actualizarUno(artModif);
+			assertTrue(artAnt != null);
 			assertNotEquals(artModif, artAnt);		
 			nomTest += "... OK";
 		}

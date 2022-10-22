@@ -6,8 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import qtx.negocio.Articulo;
+import qtx.servicios.IGestorArticulos;
 
-public class GestorArticulos {
+public class GestorArticulosMemoria implements IGestorArticulos{
 	Map<String,Articulo> bd = getBD();
 	
 	public List<Articulo> getTodos(){
