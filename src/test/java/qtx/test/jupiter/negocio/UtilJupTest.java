@@ -13,6 +13,8 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvFileSource;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -90,6 +92,32 @@ class UtilJupTest {
 	}
 	
 	//-----------------------------------------------------------------------------------
+	
+	@ParameterizedTest(name = "No. {index} - Se ejecuta la prueba con costo = {0}, precio = {1} y utilidadEsperada = {2}")
+	@CsvSource({
+		"200, 199, Perdida",
+		"200, 200, Perdida",
+		"200, 220, UtilidadBaja",
+		"200, 240, UtilidadBaja"
+	})
+	@DisplayName("testEvaluarUtilidad con 3 parametros y @CsvSource")
+	public void testEvaluarUtilidad02(float costo, float precio, String resul) {
+		System.out.println("testEvaluarUtilidad_param_multi_02");
+		assertEquals(resul,Util.evaluarUtilidad(costo, precio, 0.2, 0.5));
+	}
+
+	//-----------------------------------------------------------------------------------
+	
+	@ParameterizedTest(name = "No. {index} - Se ejecuta la prueba con costo = {0}, precio = {1} y utilidadEsperada = {2}")
+	@CsvFileSource(resources="/paramTestEvaluarUtilidad03.csv")
+	@DisplayName("testEvaluarUtilidad con 3 parametros y @CsvFileSource")
+	public void testEvaluarUtilidad03(float costo, float precio, String resul) {
+		System.out.println("testEvaluarUtilidad_param_multi_02");
+		assertEquals(resul,Util.evaluarUtilidad(costo, precio, 0.2, 0.5));
+	}
+
+	//===================================================================================================
+	
 	
 	@BeforeEach
 	void preProcesarTest() {
