@@ -6,6 +6,7 @@ public class Cliente {
 	private String nombre;
 	private Date fecNac;
 	private long id;
+	private StatusCte status;
 
 	
 	public Cliente(String nombre, Date fecNac, long id) {
@@ -13,7 +14,17 @@ public class Cliente {
 		this.nombre = nombre;
 		this.fecNac = fecNac;
 		this.id = id;
+		this.status = StatusCte.NORMAL;
 	}
+	
+	public Cliente(String nombre, Date fecNac, long id, StatusCte status) {
+		super();
+		this.nombre = nombre;
+		this.fecNac = fecNac;
+		this.id = id;
+		this.status = status;
+	}
+
 	public String getNombre() {
 		return nombre;
 	}
@@ -31,6 +42,12 @@ public class Cliente {
 	}
 	public void setId(long id) {
 		this.id = id;
+	}
+	public StatusCte getStatus() {
+		return status;
+	}
+	public void setStatus(StatusCte status) {
+		this.status = status;
 	}
 	@Override
 	public String toString() {

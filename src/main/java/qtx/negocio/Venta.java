@@ -7,7 +7,7 @@ import java.util.List;
 public class Venta {
 	private int numVenta;
 	private Date fecVta;
-	private int numCte;
+	private long idCte;
 	private List<DetalleVenta> dets = new ArrayList<>();
 	
 	public int getNumVenta() {
@@ -22,15 +22,15 @@ public class Venta {
 	public void setFecVta(Date fecVta) {
 		this.fecVta = fecVta;
 	}
-	public int getNumCte() {
-		return numCte;
+	public long getIdCte() {
+		return idCte;
 	}
-	public void setNumCte(int numCte) {
-		this.numCte = numCte;
+	public void setIdCte(long idCte) {
+		this.idCte = idCte;
 	}
 	@Override
 	public String toString() {
-		return "Venta [numVenta=" + numVenta + ", fecVta=" + fecVta + ", numCte=" + numCte + ", dets=" + dets + "]";
+		return "Venta [numVenta=" + numVenta + ", fecVta=" + fecVta + ", idCte=" + idCte + ", dets=" + dets + "]";
 	}
 
 	public void agregarDetalle(DetalleVenta detI) {

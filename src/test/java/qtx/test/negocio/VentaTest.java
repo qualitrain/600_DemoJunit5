@@ -25,7 +25,7 @@ public class VentaTest {
 	private Venta getVentaTest() {
 		Venta venta10 = new Venta();
 		venta10.setNumVenta(10);
-		venta10.setNumCte(501);
+		venta10.setIdCte(501);
 		venta10.setFecVta(new Date());
 		
 		DetalleVenta detI = new DetalleVenta(10,1,2,"X-4",new BigDecimal(precioUnitarioDet1));
