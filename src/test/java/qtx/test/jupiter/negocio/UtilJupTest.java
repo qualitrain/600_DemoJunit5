@@ -2,6 +2,8 @@ package qtx.test.jupiter.negocio;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.stream.Stream;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -10,6 +12,8 @@ import org.junit.jupiter.api.RepetitionInfo;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import qtx.negocio.Util;
@@ -59,6 +63,34 @@ class UtilJupTest {
 		assertEquals("Perdida", Util.evaluarUtilidad(100, precio, 0.2, 0.5));
 	}
 		
+	//================== Pruebas parametrizadas de varios parámetros ==================
+	
+	@ParameterizedTest(name = "No. {index} - Se ejecuta la prueba con costo = {0}, precio = {1} y resultado esperado = {2}")
+	@MethodSource("getParamsTestEvaluarUtilidad")
+	@DisplayName("testEvaluarUtilidad con 3 parametros y @MethodSource + Stream<Arguments>")
+	public void testEvaluarUtilidad(double costo, double precio, String resul) {
+		System.out.println("testEvaluarUtilidad_param_multi");
+		assertEquals(resul,Util.evaluarUtilidad(costo, precio, 0.2, 0.5));
+	}
+	
+	public static Stream<Arguments> getParamsTestEvaluarUtilidad(){
+		//dados
+		double costo = 100.0f;
+		
+		return Stream.of(
+					Arguments.arguments(costo, costo * 0.99, "Perdida"),
+					Arguments.arguments(costo, costo * 1.0, "Perdida"),
+					Arguments.arguments(costo, costo * 1.15, "UtilidadBaja"),
+					Arguments.arguments(costo, costo * 1.20, "UtilidadBaja"),
+					Arguments.arguments(costo, costo * 1.21, "UtilidadMedia"),
+					Arguments.arguments(costo, costo * 1.50, "UtilidadMedia"),
+					Arguments.arguments(costo, costo * 1.51, "UtilidadAlta"),
+					Arguments.arguments(costo, costo * 2.0, "UtilidadAlta")
+				);
+	}
+	
+	//-----------------------------------------------------------------------------------
+	
 	@BeforeEach
 	void preProcesarTest() {
 		nTest++;
