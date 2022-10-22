@@ -1,6 +1,7 @@
 package qtx.persistencia;
 
 import java.util.List;
+import java.util.Map;
 
 import qtx.negocio.Articulo;
 import qtx.servicios.IGestorArticulos;
@@ -39,6 +40,12 @@ public class GestorArticulosFake implements IGestorArticulos{
 
 	@Override
 	public List<String> getIdsTodos() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Map<Articulo, Integer> insertarMuchos(List<Articulo> arts) {
 		// TODO Auto-generated method stub
 		return null;
 	}

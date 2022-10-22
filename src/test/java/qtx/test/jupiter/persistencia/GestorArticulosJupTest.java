@@ -6,12 +6,14 @@ import static org.junit.jupiter.api.Assumptions.assumingThat;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Tag;
@@ -152,6 +154,23 @@ class GestorArticulosJupTest {
 			assertThrows(PersistenciaException.class, funInsertarDuplicado, "No lanza la excepcion esperada");
 			nomTest += "... OK";
 		}
+		@Test
+		@Tag("UpdateBD")
+		@DisplayName("Insercion de varios objetos")
+		@Disabled("Deshabilitada hasta que sea implementada por todas las implementaciones de IGestorArticulos")
+		public void testInsertarMuchos() {
+			nomTest += "testInsertarMuchos";
+			
+			assumeTrue(gestorArticulos != null);
+			
+			Articulo art1 = new Articulo("GM-B", "Goma Bicolor","Goma de borrar para lapiz y tinta",14.5f,35f);
+			Articulo art2 = new Articulo("GM-M", "Goma Migajon","Goma de borrar profesional para dibujo",12.5f,25f);
+			Articulo art3 = new Articulo("GM-BC", "Goma Blanca","Goma de borrar est�ndar blanca",10.3f,20.25f);
+			Map<Articulo, Integer> res = gestorArticulos.insertarMuchos(Arrays.asList(new Articulo[] {art1, art2, art3}));
+			assertEquals(3, res.size());
+			nomTest += "... OK";
+		}
+
 	}
 	
 	@AfterEach

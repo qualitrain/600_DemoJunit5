@@ -60,4 +60,10 @@ public class GestorArticulosMemoria implements IGestorArticulos{
 	public List<String> getIdsTodos(){
 		return new ArrayList<String>(bd.keySet());
 	}
+
+	@Override
+	public Map<Articulo, Integer> insertarMuchos(List<Articulo> arts) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

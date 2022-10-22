@@ -1,6 +1,7 @@
 package qtx.servicios;
 
 import java.util.List;
+import java.util.Map;
 
 import qtx.negocio.Articulo;
 
@@ -11,4 +12,5 @@ public interface IGestorArticulos {
 	Articulo actualizarUno(Articulo art);
 	int borrarUno(String cve);
 	List<String> getIdsTodos();
+	Map<Articulo,Integer> insertarMuchos(List<Articulo> arts);
 }
