@@ -2,6 +2,7 @@ package qtx.test.jupiter.negocio;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.AfterEach;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.RepetitionInfo;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvFileSource;
@@ -25,6 +27,8 @@ class UtilJupTest {
 
 	@Test
 	@Tag("Humo")
+	@Timeout(value = 5,unit = TimeUnit.MICROSECONDS)
+	@DisplayName("testEvaluarUtilidad con assertAll")
 	void testEvaluarUtilidad() {
 		//dados 
 		double costo = 100;
@@ -120,6 +124,7 @@ class UtilJupTest {
 	
 	
 	@BeforeEach
+	@Timeout(value = 85,unit = TimeUnit.MICROSECONDS)
 	void preProcesarTest() {
 		nTest++;
 		System.out.println("Antes del test " + nTest);

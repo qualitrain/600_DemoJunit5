@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import static org.junit.jupiter.api.Assumptions.assumingThat;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -52,6 +54,8 @@ class GestorArticulosJupTest {
 	public static void finalizarTests() {
 		System.out.println("\n========= Fin pruebas Gestor Articulos =========\n");		
 	}
+	
+	
 	@Test
 	@Tag("Humo")
 	void testGetIdsTodos() {
@@ -77,6 +81,26 @@ class GestorArticulosJupTest {
 		});
 		nomTest += "OK";
 	}
+	
+	@Test
+	@DisplayName("Tiempo de respuesta leyendo todo varias veces")
+	public void testTiempoRespuesta() {
+		nomTest += "testTiempoRespuesta";
+		final int milisMax = 2;
+		assertTimeout(Duration.ofMillis(milisMax), 
+				() -> {
+					Instant inicio = Instant.now();
+					for(int i=0; i<10000; i++)
+						gestorArticulos.getTodos();
+					Instant fin = Instant.now();
+					long milis = fin.toEpochMilli() - inicio.toEpochMilli();
+					System.out.println( "Milis:" + milis);
+					System.out.println( "Dif:" + (milis - milisMax));
+				});
+		nomTest += "... OK";		
+	}
+	
+	
 	@Nested
 	@DisplayName("Operaciones CRUD sobre Articulo")
 	class CrudTest {
