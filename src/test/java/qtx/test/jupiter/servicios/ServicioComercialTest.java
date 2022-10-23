@@ -1,6 +1,8 @@
 package qtx.test.jupiter.servicios;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
@@ -39,6 +41,7 @@ public class ServicioComercialTest {
 		
 		when(gCtes.getXId(cte.getId()))
 		    .thenReturn(cte);
+
 		
 		List<String> cvesArt = Arrays.asList( new String[]{"C-1","C-2"} );
 		List<Integer> cants = Arrays.asList( new Integer[] {4,2} );
@@ -46,6 +49,12 @@ public class ServicioComercialTest {
 		assertThrows(ClienteSuspendidoException.class, ()-> {
 			this.sComercial.generarVenta(cte.getId(), cvesArt, cants, 5);			
 		});
+		
+		// Probando que hace verify: Checa que se haya llamado al mock gCtes una vez con el argumento dado. Si no es así lanza una excepción
+		verify(gCtes).getXId(cte.getId());
+		verify(gCtes).getXId(anyLong());
+		// Probando que hace verify
+		// verify(gCtes).insertarUno(cte);
 	}
 	
 	
